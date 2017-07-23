@@ -1,0 +1,22 @@
+{
+  "name": "flashcard-generator-bootcamp-hw",
+  "version": "1.0.0",
+  "description": "backend application for generating basic and cloze delete flashcards",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jliip51/Flashcard-Generator.git"
+  },
+  "author": "jeff liipfert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jliip51/Flashcard-Generator/issues"
+  },
+  "homepage": "https://github.com/jliip51/Flashcard-Generator#readme",
+  "dependencies": {
+    "inquirer": "^3.2.0"
+  }
+}
