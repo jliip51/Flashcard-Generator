@@ -1,26 +1,22 @@
 var inquirer = require('inquirer');
-var BasicCard = require('./BasicCard.js');
-var ClozeCard = require('./ClozeCard.js');
-
-// var newBasicCard = BasicCard (
-//   'Who was the first president of the United States?',
-//   'George Washington'
-// );
-
-// newBasicCard.printCard();
+var createCards = require('./createCards.js');
+var reviewCards = require('./reviewCards.js');
 
 inquirer.prompt([
   {
-  type: 'input',
-  message: 'What is the question to display on front of card',
-  name: 'front',
-},
-  {
-    type: 'input',
-    message: 'What is the answer to display on back of card',
-    name: 'back',
+    type: 'list',
+    message: 'Do you want to create new cards or review cards?',
+    choices: ['Create Cards', 'Review Cards'],
+    name: 'choice',
   },
-]) .then(function(inquirerAnswers) {
-  var newBasicCard = BasicCard (inquirerAnswers.front, inquirerAnswers.back);
-  newBasicCard.printCard();
-});
+]).then(function(inquirerResponse) {
+    switch (inquirerResponse.choice) {
+      case 'Create Cards':
+        createCards();
+      break;
+
+      case 'Review Cards':
+        reviewCards();
+      break;
+    };
+  });
