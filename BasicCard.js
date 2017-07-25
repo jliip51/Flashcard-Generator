@@ -1,5 +1,4 @@
 var fs = require('fs');
-var jsonfile = require('jsonfile');
 
 //Basic Flash Card Constructor
 var BasicCard = function(front, back) {
@@ -21,7 +20,7 @@ BasicCard.prototype.storeCard = function() {
   var json = JSON.stringify(obj);
 
   fs.appendFile('./basic_log.json', json + ';', function(error) {
-    console.log(error);
+    if (error) console.log(error);
   });
 };
 

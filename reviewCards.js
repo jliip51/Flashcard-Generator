@@ -1,6 +1,7 @@
 var fs = require('fs');
 var inquirer = require('inquirer');
 var basicArray = [];
+var clozeArray = [];
 
 var reviewType = function() {
     inquirer.prompt([
@@ -25,11 +26,11 @@ var reviewType = function() {
   };
 
 var reviewBasic = function() {
-    fs.readFile('./basic_log.json', function(error, obj) {
+    fs.readFile('./basic_log.json', function(error, data) {
       if (error) {
         return console.log(error)
       }
-      var newstr = obj.toString();
+      var newstr = data.toString();
       var newArray = newstr.split(';');
       newArray.splice(-1, 1);
       for (i = 0; i < newArray.length; i++) {
@@ -41,20 +42,19 @@ var reviewBasic = function() {
   };
 
 var reviewCloze = function() {
-    console.log('review cloze');
-    // fs.readFile('./basic_log.txt', function(error, obj) {
-    //   if (error) {
-    //     return console.log(error)
-    //   }
-    //   var newstr = obj.toString();
-    //   var newArray = newstr.split(';');
-    //   newArray.splice(-1, 1);
-    //   for (i = 0; i < newArray.length; i++) {
-    //     var parsedObj = JSON.parse(newArray[i]);
-    //     basicArray.push(parsedObj);
-    //   };
-    //   console.log(basicArray);
-    // });
+    fs.readFile('./cloze_log.json', function(error, data) {
+      if (error) {
+        return console.log(error);
+      }
+      var newstr = data.toString();
+      var newArray = newstr.split(';');
+      newArray.splice(-1, 1);
+      for (i = 0; i < newArray.length; i++) {
+        var parsedObj = JSON.parse(newArray[i]);
+        clozeArray.push(parsedObj);
+      };
+      console.log(clozeArray);
+    });
   };
 
 module.exports = reviewType;
