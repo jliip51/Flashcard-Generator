@@ -1,7 +1,11 @@
 var fs = require('fs');
 var inquirer = require('inquirer');
 var basicArray = [];
+var basicCount = basicArray.length;
+var basicIndex = 0;
 var clozeArray = [];
+var clozeCount = clozeArray.length;
+var clozeIndex = 0;
 
 var reviewType = function() {
     inquirer.prompt([
@@ -14,18 +18,17 @@ var reviewType = function() {
     ]).then(function(inquirerResponse) {
       switch (inquirerResponse.choice) {
         case 'Basic Cards':
-          reviewBasic();
+          requestBasic();
         break;
 
         case 'Cloze Cards':
-          reviewCloze();
-
+          requestCloze();
         break;
       };
     });
   };
 
-var reviewBasic = function() {
+var requestBasic = function() {
     fs.readFile('./basic_log.json', function(error, data) {
       if (error) {
         return console.log(error)
@@ -37,11 +40,12 @@ var reviewBasic = function() {
         var parsedObj = JSON.parse(newArray[i]);
         basicArray.push(parsedObj);
       };
-      console.log(basicArray);
+      basicCount = basicArray.length;
+      reviewBasic();
     });
   };
 
-var reviewCloze = function() {
+var requestCloze = function() {
     fs.readFile('./cloze_log.json', function(error, data) {
       if (error) {
         return console.log(error);
@@ -53,8 +57,33 @@ var reviewCloze = function() {
         var parsedObj = JSON.parse(newArray[i]);
         clozeArray.push(parsedObj);
       };
-      console.log(clozeArray);
+      clozeCount = clozeArray.length;
+      reviewCloze();
     });
   };
+
+var reviewBasic = function() {
+  if (basicCount > 0) {
+    console.log('\nQuestion: ' + basicArray[basicIndex].front + '\n');
+    inquirer.prompt([
+    {
+      'type': 'input',
+      'message': 'Show answer? [y]',
+      'name' : 'show',
+      validate: function(value) {
+        if (value === "y") return true;
+        return false;
+      }
+    },
+    ]).then(function(inquirerResponse) {
+     console.log('\nAnswer: ' + basicArray[basicIndex].back  + '\n');
+     basicCount--;
+     basicIndex++;
+     reviewBasic();
+    });
+  } else {
+      console.log("Great Job!");
+    };
+};
 
 module.exports = reviewType;
