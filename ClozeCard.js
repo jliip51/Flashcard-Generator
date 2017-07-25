@@ -26,9 +26,3 @@ ClozeCard.prototype.storeCard = function() {
 };
 
 module.exports = ClozeCard;
-
-
-
-
-
-module.exports = ClozeCard;

@@ -73,17 +73,42 @@ var reviewBasic = function() {
       validate: function(value) {
         if (value === "y") return true;
         return false;
-      }
+      },
     },
     ]).then(function(inquirerResponse) {
-     console.log('\nAnswer: ' + basicArray[basicIndex].back  + '\n');
-     basicCount--;
-     basicIndex++;
-     reviewBasic();
+      console.log('\nAnswer: ' + basicArray[basicIndex].back  + '\n');
+      basicCount--;
+      basicIndex++;
+      reviewBasic();
     });
   } else {
-      console.log("Great Job!");
-    };
+    console.log('Great Job!');
+  };
+};
+
+var reviewCloze = function() {
+  if (clozeCount > 0) {
+    console.log('\nQuestion: ' + clozeArray[clozeIndex].partialText + '\n');
+    inquirer.prompt([
+    {
+      'type': 'input',
+      'message': 'Show answer? [y]',
+      'name' : 'show',
+      validate: function(value) {
+        if (value === "y") return true;
+        return false;
+      },
+    },
+    ]).then(function(inquirerResponse) {
+      console.log('\nAnswer: ' + clozeArray[clozeIndex].cloze  + '\n');
+      console.log('\nCompleted: ' + clozeArray[clozeIndex].fullText + '\n');
+      clozeCount--;
+      clozeIndex++;
+      reviewCloze();
+    });
+  } else {
+    console.log("Great Job!");
+  };
 };
 
 module.exports = reviewType;
