@@ -1,7 +1,7 @@
 # Flashcard-Generator
 Backend Flashcard application
 
-Node cli.js (run in command line)
+node cli.js (run in command line)
 
 Follow prompts to 'create' new cards or 'review' existing cards.
 
